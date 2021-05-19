@@ -40,14 +40,14 @@ SET(service_sources)
 FOREACH(service ctl dms nas pds wds wms wda uim)
 	ADD_CUSTOM_COMMAND(
 		OUTPUT  ${CMAKE_SOURCE_DIR}/qmi-message-${service}.h
-		COMMAND ${CMAKE_SOURCE_DIR}/data/gen-header.pl ${service}_ ${CMAKE_SOURCE_DIR}/data/qmi-service-${service}.json > ${CMAKE_SOURCE_DIR}/qmi-message-${service}.h
-		DEPENDS ${CMAKE_SOURCE_DIR}/data/gen-header.pl ${CMAKE_SOURCE_DIR}/data/qmi-service-${service}.json ${CMAKE_SOURCE_DIR}/data/gen-common.pm
+		COMMAND lua ${CMAKE_SOURCE_DIR}/data/gen-message.lua header ${service} ${CMAKE_SOURCE_DIR}/data/qmi-service-${service}.lua > ${CMAKE_SOURCE_DIR}/qmi-message-${service}.h
+		DEPENDS ${CMAKE_SOURCE_DIR}/data/gen-message.lua ${CMAKE_SOURCE_DIR}/data/qmi-service-${service}.lua
 	)
 	SET(service_headers ${service_headers} qmi-message-${service}.h)
 	ADD_CUSTOM_COMMAND(
 		OUTPUT  ${CMAKE_SOURCE_DIR}/qmi-message-${service}.c
-		COMMAND ${CMAKE_SOURCE_DIR}/data/gen-code.pl ${service}_ ${CMAKE_SOURCE_DIR}/data/qmi-service-${service}.json > ${CMAKE_SOURCE_DIR}/qmi-message-${service}.c
-		DEPENDS ${CMAKE_SOURCE_DIR}/data/gen-code.pl ${CMAKE_SOURCE_DIR}/data/qmi-service-${service}.json ${CMAKE_SOURCE_DIR}/data/gen-common.pm
+		COMMAND lua ${CMAKE_SOURCE_DIR}/data/gen-message.lua code ${service} ${CMAKE_SOURCE_DIR}/data/qmi-service-${service}.lua > ${CMAKE_SOURCE_DIR}/qmi-message-${service}.c
+		DEPENDS ${CMAKE_SOURCE_DIR}/data/gen-code.lua ${CMAKE_SOURCE_DIR}/data/qmi-service-${service}.lua
 	)
 	SET(service_sources ${service_sources} qmi-message-${service}.c)
 	set_property(SOURCE qmi-message-${service}.c PROPERTY COMPILE_FLAGS "-Wno-unused")
@@ -55,8 +55,8 @@ ENDFOREACH()
 
 ADD_CUSTOM_COMMAND(
 	OUTPUT  ${CMAKE_SOURCE_DIR}/qmi-errors.c
-	COMMAND ${CMAKE_SOURCE_DIR}/data/gen-error-list.pl ${CMAKE_SOURCE_DIR}/qmi-errors.h > ${CMAKE_SOURCE_DIR}/qmi-errors.c
-	DEPENDS ${CMAKE_SOURCE_DIR}/data/gen-error-list.pl ${CMAKE_SOURCE_DIR}/qmi-errors.h
+	COMMAND sed -f ${CMAKE_SOURCE_DIR}/data/gen-error-list.sed ${CMAKE_SOURCE_DIR}/qmi-errors.h > ${CMAKE_SOURCE_DIR}/qmi-errors.c
+	DEPENDS ${CMAKE_SOURCE_DIR}/data/gen-error-list.sed ${CMAKE_SOURCE_DIR}/qmi-errors.h
 )
 ADD_CUSTOM_TARGET(gen-errors DEPENDS qmi-errors.c)
 ADD_CUSTOM_TARGET(gen-headers DEPENDS ${service_headers})
