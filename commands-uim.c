@@ -21,7 +21,7 @@
 
 #define cmd_uim_verify_pin1_cb no_cb
 static enum qmi_cmd_result
-cmd_uim_verify_pin1_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_uim_verify_pin1_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	struct qmi_uim_verify_pin_request data = {
 		QMI_INIT_SEQUENCE(session_information,
@@ -39,7 +39,7 @@ cmd_uim_verify_pin1_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct
 
 #define cmd_uim_verify_pin2_cb no_cb
 static enum qmi_cmd_result
-cmd_uim_verify_pin2_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_uim_verify_pin2_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	struct qmi_uim_verify_pin_request data = {
 		QMI_INIT_SEQUENCE(session_information,

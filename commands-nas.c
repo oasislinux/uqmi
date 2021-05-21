@@ -29,7 +29,7 @@ static struct	{
 
 #define cmd_nas_do_set_system_selection_cb no_cb
 static enum qmi_cmd_result
-cmd_nas_do_set_system_selection_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_nas_do_set_system_selection_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	qmi_set_nas_set_system_selection_preference_request(msg, &sel_req);
 	return QMI_CMD_REQUEST;
@@ -50,7 +50,7 @@ do_sel_network(void)
 
 #define cmd_nas_set_network_modes_cb no_cb
 static enum qmi_cmd_result
-cmd_nas_set_network_modes_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_nas_set_network_modes_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	static const struct {
 		const char *name;
@@ -92,7 +92,7 @@ cmd_nas_set_network_modes_prepare(struct qmi_dev *qmi, struct qmi_request *req, 
 
 #define cmd_nas_set_network_preference_cb no_cb
 static enum qmi_cmd_result
-cmd_nas_set_network_preference_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_nas_set_network_preference_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	QmiNasGsmWcdmaAcquisitionOrderPreference pref = QMI_NAS_GSM_WCDMA_ACQUISITION_ORDER_PREFERENCE_AUTOMATIC;
 
@@ -107,7 +107,7 @@ cmd_nas_set_network_preference_prepare(struct qmi_dev *qmi, struct qmi_request *
 
 #define cmd_nas_set_roaming_cb no_cb
 static enum qmi_cmd_result
-cmd_nas_set_roaming_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_nas_set_roaming_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	QmiNasRoamingPreference pref;
 
@@ -126,7 +126,7 @@ cmd_nas_set_roaming_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct
 
 #define cmd_nas_set_mcc_cb no_cb
 static enum qmi_cmd_result
-cmd_nas_set_mcc_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_nas_set_mcc_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	char *err;
 	int value = strtoul(arg, &err, 10);
@@ -142,7 +142,7 @@ cmd_nas_set_mcc_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi
 
 #define cmd_nas_set_mnc_cb no_cb
 static enum qmi_cmd_result
-cmd_nas_set_mnc_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_nas_set_mnc_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	char *err;
 	int value = strtoul(arg, &err, 10);
@@ -158,7 +158,7 @@ cmd_nas_set_mnc_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi
 
 #define cmd_nas_set_plmn_cb no_cb
 static enum qmi_cmd_result
-cmd_nas_set_plmn_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_nas_set_plmn_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	sel_req.set.network_selection_preference = 1;
 	sel_req.data.network_selection_preference.mode = QMI_NAS_NETWORK_SELECTION_PREFERENCE_AUTOMATIC;
@@ -182,7 +182,7 @@ cmd_nas_set_plmn_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qm
 
 #define cmd_nas_initiate_network_register_cb no_cb
 static enum qmi_cmd_result
-cmd_nas_initiate_network_register_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_nas_initiate_network_register_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	static struct qmi_nas_initiate_network_register_request register_req = {
 		QMI_INIT(action, QMI_NAS_NETWORK_REGISTER_TYPE_AUTOMATIC)
@@ -242,7 +242,7 @@ cmd_nas_get_signal_info_cb(struct qmi_dev *qmi, struct qmi_request *req, struct 
 }
 
 static enum qmi_cmd_result
-cmd_nas_get_signal_info_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_nas_get_signal_info_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	qmi_set_nas_get_signal_info_request(msg);
 	return QMI_CMD_REQUEST;
@@ -286,7 +286,7 @@ cmd_nas_get_serving_system_cb(struct qmi_dev *qmi, struct qmi_request *req, stru
 }
 
 static enum qmi_cmd_result
-cmd_nas_get_serving_system_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_nas_get_serving_system_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	qmi_set_nas_get_serving_system_request(msg);
 	return QMI_CMD_REQUEST;
@@ -362,7 +362,7 @@ cmd_nas_network_scan_cb(struct qmi_dev *qmi, struct qmi_request *req, struct qmi
 }
 
 static enum qmi_cmd_result
-cmd_nas_network_scan_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_nas_network_scan_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	struct qmi_nas_network_scan_request sreq = {
 		QMI_INIT(network_type,

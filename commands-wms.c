@@ -39,7 +39,7 @@ static void cmd_wms_list_messages_cb(struct qmi_dev *qmi, struct qmi_request *re
 }
 
 static enum qmi_cmd_result
-cmd_wms_list_messages_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_wms_list_messages_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	static struct qmi_wms_list_messages_request mreq = {
 		QMI_INIT(storage_type, QMI_WMS_STORAGE_TYPE_UIM),
@@ -281,7 +281,7 @@ static void blobmsg_add_hex(struct blob_buf *buf, const char *name, unsigned con
 
 #define cmd_wms_delete_message_cb no_cb
 static enum qmi_cmd_result
-cmd_wms_delete_message_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_wms_delete_message_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	char *err;
 	int id;
@@ -441,7 +441,7 @@ error:
 }
 
 static enum qmi_cmd_result
-cmd_wms_get_message_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_wms_get_message_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	static struct qmi_wms_raw_read_request mreq = {
 		QMI_INIT_SEQUENCE(message_memory_storage_id,
@@ -493,7 +493,7 @@ static struct {
 
 #define cmd_wms_send_message_smsc_cb no_cb
 static enum qmi_cmd_result
-cmd_wms_send_message_smsc_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_wms_send_message_smsc_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	_send.smsc = arg;
 	return QMI_CMD_DONE;
@@ -501,7 +501,7 @@ cmd_wms_send_message_smsc_prepare(struct qmi_dev *qmi, struct qmi_request *req, 
 
 #define cmd_wms_send_message_target_cb no_cb
 static enum qmi_cmd_result
-cmd_wms_send_message_target_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_wms_send_message_target_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	_send.target = arg;
 	return QMI_CMD_DONE;
@@ -509,7 +509,7 @@ cmd_wms_send_message_target_prepare(struct qmi_dev *qmi, struct qmi_request *req
 
 #define cmd_wms_send_message_flash_cb no_cb
 static enum qmi_cmd_result
-cmd_wms_send_message_flash_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_wms_send_message_flash_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	_send.flash = true;
 	return QMI_CMD_DONE;
@@ -619,7 +619,7 @@ pdu_encode_data(unsigned char *dest, const char *str)
 
 #define cmd_wms_send_message_cb no_cb
 static enum qmi_cmd_result
-cmd_wms_send_message_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_wms_send_message_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	static unsigned char buf[512];
 	static struct qmi_wms_raw_send_request mreq = {

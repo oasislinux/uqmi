@@ -58,7 +58,7 @@ static void cmd_version_cb(struct qmi_dev *qmi, struct qmi_request *req, struct 
 }
 
 static enum qmi_cmd_result
-cmd_version_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_version_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	qmi_set_ctl_get_version_info_request(msg);
 	return QMI_CMD_REQUEST;
@@ -66,7 +66,7 @@ cmd_version_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg
 
 #define cmd_sync_cb no_cb
 static enum qmi_cmd_result
-cmd_sync_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_sync_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	qmi_set_ctl_sync_request(msg);
 	return QMI_CMD_REQUEST;
@@ -74,7 +74,7 @@ cmd_sync_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *m
 
 #define cmd_get_client_id_cb no_cb
 static enum qmi_cmd_result
-cmd_get_client_id_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_get_client_id_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	QmiService svc = qmi_service_get_by_name(arg);
 
@@ -94,7 +94,7 @@ cmd_get_client_id_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct q
 
 #define cmd_set_client_id_cb no_cb
 static enum qmi_cmd_result
-cmd_set_client_id_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_set_client_id_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	QmiService svc;
 	int id;
@@ -146,7 +146,7 @@ qmi_get_array_idx(const char **array, int size, const char *str)
 
 #define cmd_ctl_set_data_format_cb no_cb
 static enum qmi_cmd_result
-cmd_ctl_set_data_format_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_ctl_set_data_format_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	struct qmi_ctl_set_data_format_request sreq = {};
 	const char *modes[] = {
@@ -231,7 +231,7 @@ static bool __uqmi_run_commands(struct qmi_dev *qmi, bool option)
 			uqmi_add_error("Failed to connect to service");
 			res = QMI_CMD_EXIT;
 		} else {
-			res = cmds[i].handler->prepare(qmi, &req, (void *) buf, cmds[i].arg);
+			res = cmds[i].handler->prepare(qmi, (void *) buf, cmds[i].arg);
 		}
 
 		if (res == QMI_CMD_REQUEST) {

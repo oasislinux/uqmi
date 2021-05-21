@@ -34,7 +34,7 @@ static const struct {
 #define cmd_wda_set_data_format_cb no_cb
 
 static enum qmi_cmd_result
-cmd_wda_set_data_format_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_wda_set_data_format_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	struct qmi_wda_set_data_format_request data_req = {};
 	int i;
@@ -72,7 +72,7 @@ cmd_wda_get_data_format_cb(struct qmi_dev *qmi, struct qmi_request *req, struct 
 }
 
 static enum qmi_cmd_result
-cmd_wda_get_data_format_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_wda_get_data_format_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	qmi_set_wda_get_data_format_request(msg);
 	return QMI_CMD_REQUEST;

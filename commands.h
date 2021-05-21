@@ -44,7 +44,7 @@ struct uqmi_cmd_handler {
 	const char *name;
 	int type;
 
-	enum qmi_cmd_result (*prepare)(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg);
+	enum qmi_cmd_result (*prepare)(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg);
 	void (*cb)(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg);
 };
 

@@ -74,7 +74,7 @@ static void cmd_dms_get_capabilities_cb(struct qmi_dev *qmi, struct qmi_request 
 }
 
 static enum qmi_cmd_result
-cmd_dms_get_capabilities_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_dms_get_capabilities_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	qmi_set_dms_get_capabilities_request(msg);
 	return QMI_CMD_REQUEST;
@@ -121,7 +121,7 @@ static void cmd_dms_get_pin_status_cb(struct qmi_dev *qmi, struct qmi_request *r
 }
 
 static enum qmi_cmd_result
-cmd_dms_get_pin_status_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_dms_get_pin_status_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	qmi_set_dms_uim_get_pin_status_request(msg);
 	return QMI_CMD_REQUEST;
@@ -129,7 +129,7 @@ cmd_dms_get_pin_status_prepare(struct qmi_dev *qmi, struct qmi_request *req, str
 
 #define cmd_dms_verify_pin1_cb no_cb
 static enum qmi_cmd_result
-cmd_dms_verify_pin1_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_dms_verify_pin1_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	struct qmi_dms_uim_verify_pin_request data = {
 		QMI_INIT_SEQUENCE(info,
@@ -143,7 +143,7 @@ cmd_dms_verify_pin1_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct
 
 #define cmd_dms_verify_pin2_cb no_cb
 static enum qmi_cmd_result
-cmd_dms_verify_pin2_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_dms_verify_pin2_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	struct qmi_dms_uim_verify_pin_request data = {
 		QMI_INIT_SEQUENCE(info,
@@ -157,7 +157,7 @@ cmd_dms_verify_pin2_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct
 
 #define cmd_dms_set_pin_cb no_cb
 static enum qmi_cmd_result
-cmd_dms_set_pin_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_dms_set_pin_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	dms_req_data.pin = arg;
 	return QMI_CMD_DONE;
@@ -195,7 +195,7 @@ cmd_dms_set_pin_protection_prepare(struct qmi_msg *msg, char *arg)
 
 #define cmd_dms_set_pin1_protection_cb no_cb
 static enum qmi_cmd_result
-cmd_dms_set_pin1_protection_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_dms_set_pin1_protection_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	dms_req_data.pin_id = QMI_DMS_UIM_PIN_ID_PIN;
 	return cmd_dms_set_pin_protection_prepare(msg, arg);
@@ -203,7 +203,7 @@ cmd_dms_set_pin1_protection_prepare(struct qmi_dev *qmi, struct qmi_request *req
 
 #define cmd_dms_set_pin2_protection_cb no_cb
 static enum qmi_cmd_result
-cmd_dms_set_pin2_protection_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_dms_set_pin2_protection_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	dms_req_data.pin_id = QMI_DMS_UIM_PIN_ID_PIN2;
 	return cmd_dms_set_pin_protection_prepare(msg, arg);
@@ -231,7 +231,7 @@ cmd_dms_change_pin_prepare(struct qmi_msg *msg, char *arg)
 
 #define cmd_dms_change_pin1_cb no_cb
 static enum qmi_cmd_result
-cmd_dms_change_pin1_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_dms_change_pin1_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	dms_req_data.pin_id = QMI_DMS_UIM_PIN_ID_PIN;
 	return cmd_dms_change_pin_prepare(msg, arg);
@@ -239,7 +239,7 @@ cmd_dms_change_pin1_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct
 
 #define cmd_dms_change_pin2_cb no_cb
 static enum qmi_cmd_result
-cmd_dms_change_pin2_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_dms_change_pin2_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	dms_req_data.pin_id = QMI_DMS_UIM_PIN_ID_PIN2;
 	return cmd_dms_change_pin_prepare(msg, arg);
@@ -247,7 +247,7 @@ cmd_dms_change_pin2_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct
 
 #define cmd_dms_set_new_pin_cb no_cb
 static enum qmi_cmd_result
-cmd_dms_set_new_pin_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_dms_set_new_pin_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	dms_req_data.new_pin = arg;
 	return QMI_CMD_DONE;
@@ -255,7 +255,7 @@ cmd_dms_set_new_pin_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct
 
 #define cmd_dms_set_puk_cb no_cb
 static enum qmi_cmd_result
-cmd_dms_set_puk_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_dms_set_puk_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	dms_req_data.puk = arg;
 	return QMI_CMD_DONE;
@@ -263,7 +263,7 @@ cmd_dms_set_puk_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi
 
 #define cmd_dms_unblock_pin1_cb no_cb
 static enum qmi_cmd_result
-cmd_dms_unblock_pin1_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_dms_unblock_pin1_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	if (!dms_req_data.puk || !dms_req_data.new_pin) {
 		uqmi_add_error("Missing argument");
@@ -284,7 +284,7 @@ cmd_dms_unblock_pin1_prepare(struct qmi_dev *qmi, struct qmi_request *req, struc
 
 #define cmd_dms_unblock_pin2_cb no_cb
 static enum qmi_cmd_result
-cmd_dms_unblock_pin2_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_dms_unblock_pin2_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	if (!dms_req_data.puk || !dms_req_data.new_pin) {
 		uqmi_add_error("Missing argument");
@@ -313,7 +313,7 @@ static void cmd_dms_get_iccid_cb(struct qmi_dev *qmi, struct qmi_request *req, s
 }
 
 static enum qmi_cmd_result
-cmd_dms_get_iccid_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_dms_get_iccid_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	qmi_set_dms_uim_get_iccid_request(msg);
 	return QMI_CMD_REQUEST;
@@ -329,7 +329,7 @@ static void cmd_dms_get_imsi_cb(struct qmi_dev *qmi, struct qmi_request *req, st
 }
 
 static enum qmi_cmd_result
-cmd_dms_get_imsi_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_dms_get_imsi_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	qmi_set_dms_uim_get_imsi_request(msg);
 	return QMI_CMD_REQUEST;
@@ -345,7 +345,7 @@ static void cmd_dms_get_msisdn_cb(struct qmi_dev *qmi, struct qmi_request *req, 
 }
 
 static enum qmi_cmd_result
-cmd_dms_get_msisdn_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_dms_get_msisdn_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	qmi_set_dms_get_msisdn_request(msg);
 	return QMI_CMD_REQUEST;
@@ -361,7 +361,7 @@ static void cmd_dms_get_imei_cb(struct qmi_dev *qmi, struct qmi_request *req, st
 }
 
 static enum qmi_cmd_result
-cmd_dms_get_imei_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_dms_get_imei_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	qmi_set_dms_get_ids_request(msg);
 	return QMI_CMD_REQUEST;
@@ -369,7 +369,7 @@ cmd_dms_get_imei_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qm
 
 #define cmd_dms_reset_cb no_cb
 static enum qmi_cmd_result
-cmd_dms_reset_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_dms_reset_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	qmi_set_dms_reset_request(msg);
 	return QMI_CMD_REQUEST;
@@ -377,7 +377,7 @@ cmd_dms_reset_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_m
 
 #define cmd_dms_set_operating_mode_cb no_cb
 static enum qmi_cmd_result
-cmd_dms_set_operating_mode_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_dms_set_operating_mode_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	static const char *modes[] = {
 		[QMI_DMS_OPERATING_MODE_ONLINE] = "online",
@@ -411,7 +411,7 @@ cmd_dms_set_operating_mode_prepare(struct qmi_dev *qmi, struct qmi_request *req,
 
 #define cmd_dms_set_fcc_authentication_cb no_cb
 static enum qmi_cmd_result
-cmd_dms_set_fcc_authentication_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_dms_set_fcc_authentication_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	qmi_set_dms_set_fcc_authentication_request(msg);
 	return QMI_CMD_REQUEST;

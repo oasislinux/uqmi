@@ -32,7 +32,7 @@ static struct qmi_wds_stop_network_request wds_stn_req;
 
 #define cmd_wds_set_apn_cb no_cb
 static enum qmi_cmd_result
-cmd_wds_set_apn_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_wds_set_apn_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	qmi_set_ptr(&wds_sn_req, apn, arg);
 	return QMI_CMD_DONE;
@@ -40,7 +40,7 @@ cmd_wds_set_apn_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi
 
 #define cmd_wds_set_auth_cb no_cb
 static enum qmi_cmd_result
-cmd_wds_set_auth_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_wds_set_auth_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	static const struct {
 		const char *name;
@@ -67,7 +67,7 @@ cmd_wds_set_auth_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qm
 
 #define cmd_wds_set_username_cb no_cb
 static enum qmi_cmd_result
-cmd_wds_set_username_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_wds_set_username_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	qmi_set_ptr(&wds_sn_req, username, arg);
 	return QMI_CMD_DONE;
@@ -75,7 +75,7 @@ cmd_wds_set_username_prepare(struct qmi_dev *qmi, struct qmi_request *req, struc
 
 #define cmd_wds_set_password_cb no_cb
 static enum qmi_cmd_result
-cmd_wds_set_password_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_wds_set_password_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	qmi_set_ptr(&wds_sn_req, password, arg);
 	return QMI_CMD_DONE;
@@ -83,7 +83,7 @@ cmd_wds_set_password_prepare(struct qmi_dev *qmi, struct qmi_request *req, struc
 
 #define cmd_wds_set_autoconnect_cb no_cb
 static enum qmi_cmd_result
-cmd_wds_set_autoconnect_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_wds_set_autoconnect_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	qmi_set(&wds_sn_req, enable_autoconnect, true);
 	qmi_set(&wds_stn_req, disable_autoconnect, true);
@@ -92,7 +92,7 @@ cmd_wds_set_autoconnect_prepare(struct qmi_dev *qmi, struct qmi_request *req, st
 
 #define cmd_wds_set_ip_family_pref_cb no_cb
 static enum qmi_cmd_result
-cmd_wds_set_ip_family_pref_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_wds_set_ip_family_pref_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	static const struct {
 		const char *name;
@@ -118,7 +118,7 @@ cmd_wds_set_ip_family_pref_prepare(struct qmi_dev *qmi, struct qmi_request *req,
 
 #define cmd_wds_set_profile_cb no_cb
 static enum qmi_cmd_result
-cmd_wds_set_profile_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_wds_set_profile_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	uint32_t idx = strtoul(arg, NULL, 10);
 
@@ -137,7 +137,7 @@ cmd_wds_start_network_cb(struct qmi_dev *qmi, struct qmi_request *req, struct qm
 }
 
 static enum qmi_cmd_result
-cmd_wds_start_network_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_wds_start_network_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	qmi_set_wds_start_network_request(msg, &wds_sn_req);
 	return QMI_CMD_REQUEST;
@@ -145,7 +145,7 @@ cmd_wds_start_network_prepare(struct qmi_dev *qmi, struct qmi_request *req, stru
 
 #define cmd_wds_stop_network_cb no_cb
 static enum qmi_cmd_result
-cmd_wds_stop_network_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_wds_stop_network_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	uint32_t pdh = strtoul(arg, NULL, 0);
 
@@ -176,7 +176,7 @@ cmd_wds_get_packet_service_status_cb(struct qmi_dev *qmi, struct qmi_request *re
 }
 
 static enum qmi_cmd_result
-cmd_wds_get_packet_service_status_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_wds_get_packet_service_status_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	qmi_set_wds_get_packet_service_status_request(msg);
 	return QMI_CMD_REQUEST;
@@ -184,7 +184,7 @@ cmd_wds_get_packet_service_status_prepare(struct qmi_dev *qmi, struct qmi_reques
 
 #define cmd_wds_set_autoconnect_setting_cb no_cb
 static enum qmi_cmd_result
-cmd_wds_set_autoconnect_setting_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_wds_set_autoconnect_setting_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	struct qmi_wds_set_autoconnect_setting_request ac_req;
 	const char *modes[] = {
@@ -209,7 +209,7 @@ cmd_wds_set_autoconnect_setting_prepare(struct qmi_dev *qmi, struct qmi_request 
 
 #define cmd_wds_reset_cb no_cb
 static enum qmi_cmd_result
-cmd_wds_reset_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_wds_reset_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	qmi_set_wds_reset_request(msg);
 	return QMI_CMD_REQUEST;
@@ -217,7 +217,7 @@ cmd_wds_reset_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_m
 
 #define cmd_wds_set_ip_family_cb no_cb
 static enum qmi_cmd_result
-cmd_wds_set_ip_family_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_wds_set_ip_family_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	struct qmi_wds_set_ip_family_request ipf_req;
 	const struct ip_modes {
@@ -347,7 +347,7 @@ cmd_wds_get_current_settings_cb(struct qmi_dev *qmi, struct qmi_request *req, st
 }
 
 static enum qmi_cmd_result
-cmd_wds_get_current_settings_prepare(struct qmi_dev *qmi, struct qmi_request *req, struct qmi_msg *msg, char *arg)
+cmd_wds_get_current_settings_prepare(struct qmi_dev *qmi, struct qmi_msg *msg, char *arg)
 {
 	struct qmi_wds_get_current_settings_request gcs_req;
 	memset(&gcs_req, '\0', sizeof(struct qmi_wds_get_current_settings_request));
